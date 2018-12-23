@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { formatDate } from '../../utils'
+import { formatDate } from '../utils'
 
-import { PostObject } from '../../types'
-import { nbsp } from '../../constants'
+import { PostObject } from '../types'
+import { nbsp } from '../constants'
 
 interface PostProps {
   post : PostObject,

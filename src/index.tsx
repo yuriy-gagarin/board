@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import { configureStore } from './state'
 
-import Board from './views/containers/Board'
+import Board from './components/Board'
 
 import './styles/index.css'
 

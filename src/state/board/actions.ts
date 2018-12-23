@@ -1,8 +1,14 @@
-// types
-import { FSA, ErrorFSA } from 'flux-standard-action'
-import { ActionCreator, Action } from 'redux'
-import { ThreadsResponse } from '../../types'
+import { schema, normalize } from 'normalizr'
+import { Action, ActionCreator } from 'redux'
 import { getThreads } from './actionTypes'
+
+const threadsSchema = {
+  data: [ 
+    new schema.Entity('threads', {
+      posts: [ new schema.Entity('posts') ]
+    })
+  ]
+}
 
 export const getThreadsRequest : ActionCreator<Action> = () => ({
   type: getThreads.request
@@ -10,7 +16,7 @@ export const getThreadsRequest : ActionCreator<Action> = () => ({
 
 export const getThreadsSuccess : ActionCreator<Action> = (response) => ({
   type: getThreads.success,
-  payload: response
+  payload: normalize(response, threadsSchema)
 })
 
 export const getThreadsFailure : ActionCreator<Action> = (error) => ({

@@ -1,5 +1,4 @@
 import { ThunkAction } from 'redux-thunk'
-import { FSA } from 'flux-standard-action'
 import { ActionCreator, Action } from 'redux'
 
 export type Thunk = ActionCreator<ThunkAction<Promise<Action>, ReduxState, void, Action>>
@@ -24,9 +23,18 @@ export interface PostObject {
 
 export interface ThreadObject {
   readonly id : string,
-  readonly posts : PostObject[],
+  readonly posts : string[],
   readonly postCount : number,
   readonly op : PostObject
+}
+
+export type MockPostObject = PostObject
+
+export interface MockThreadObject {
+  readonly id : string,
+  readonly posts : MockPostObject[],
+  readonly postCount : number,
+  readonly op : MockPostObject
 }
 
 export interface ErrorResponse {
@@ -35,11 +43,21 @@ export interface ErrorResponse {
 }
 
 export interface ThreadsResponse {
-  readonly data : ThreadObject[],
+  readonly data : MockThreadObject[],
   readonly error : false
 }
 
 export interface ThreadResponse {
-  readonly data : ThreadObject,
+  readonly data : MockThreadObject,
   readonly error : false
+}
+
+export interface RandomTextMeResponse {
+  readonly type : string,
+  readonly amount : number,
+  readonly number : string,
+  readonly number_max : string,
+  readonly format : string,
+  readonly time : string,
+  readonly text_out : string
 }

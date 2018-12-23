@@ -6,3 +6,5 @@ export const LOREM_IPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing e
   'do consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cill' +
   'um dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proiden' +
   't, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
+export const ACTION_SEPARATOR = '~'

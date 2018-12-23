@@ -1,9 +1,7 @@
 import * as actions from './actions'
 import * as boardApi from '../../api/board'
 
-import { Action, ActionCreator } from 'redux'
-import { Thunk, ReduxState } from '../../types'
-import { ThunkAction } from 'redux-thunk';
+import { Thunk } from '../../types'
 
 export const getThreads : Thunk = () => (dispatch, getState) => {
   dispatch(actions.getThreadsRequest())
