@@ -21,7 +21,7 @@ const Board = ({ threads, getThreads } : BoardProps) => {
   const previews = threads.map(thread =>
     <li key={thread.id}> <Preview thread={thread} /> </li>
   )
-  return <ul> {previews} </ul>
+  return <ul className='Board'> {previews} </ul>
 }
 
 const props = (state : ReduxState) => ({

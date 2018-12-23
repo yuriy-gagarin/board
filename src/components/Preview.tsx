@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { operations } from '../state/board'
 import { selectors } from '../state/board'
 import { ReduxState, ThreadObject, PostObject } from '../types'
 
@@ -12,12 +11,13 @@ interface PreviewOwnProps {
 }
 
 interface PreviewStateProps {
-  posts : PostObject[]
+  posts : PostObject[],
+  op : PostObject
 }
 
 type PreviewProps = PreviewOwnProps & PreviewStateProps
 
-const Preview = ({ thread: { id, postCount, op }, posts } : PreviewProps) => {
+const Preview = ({ thread: { id, postCount }, posts, op } : PreviewProps) => {
   const opElement = <li key={op.id}> <Post post={op} isOp index={0}/> </li>
 
   const postElements = posts.map((post : PostObject, index : number) => {
@@ -29,7 +29,8 @@ const Preview = ({ thread: { id, postCount, op }, posts } : PreviewProps) => {
 }
 
 const props = (state : ReduxState, ownProps : PreviewOwnProps) => ({
-  posts: selectors.getPosts(state, ownProps.thread.id)
+  posts: selectors.getPosts(state, ownProps.thread.id),
+  op: selectors.post(state, ownProps.thread.op)
 })
 
 export default connect(props)(Preview)

@@ -12,6 +12,7 @@
     "@types/redux-logger": "^3.0.6",
     "@types/styled-components": "^4.1.4",
     "flux-standard-action": "^2.0.3",
+    "node-sass": "^4.11.0",
     "normalizr": "^3.3.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",

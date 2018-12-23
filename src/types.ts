@@ -25,7 +25,7 @@ export interface ThreadObject {
   readonly id : string,
   readonly posts : string[],
   readonly postCount : number,
-  readonly op : PostObject
+  readonly op : string
 }
 
 export type MockPostObject = PostObject

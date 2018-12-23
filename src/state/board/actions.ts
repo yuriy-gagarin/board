@@ -2,10 +2,13 @@ import { schema, normalize } from 'normalizr'
 import { Action, ActionCreator } from 'redux'
 import { getThreads } from './actionTypes'
 
+const post = new schema.Entity('posts')
+
 const threadsSchema = {
   data: [ 
     new schema.Entity('threads', {
-      posts: [ new schema.Entity('posts') ]
+      posts: [ post ],
+      op: post
     })
   ]
 }

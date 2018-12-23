@@ -7,7 +7,7 @@ import { configureStore } from './state'
 
 import Board from './components/Board'
 
-import './styles/index.css'
+import './styles/index.scss'
 
 import { Store } from 'redux'
 
