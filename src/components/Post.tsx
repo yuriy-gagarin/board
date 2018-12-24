@@ -15,7 +15,6 @@ interface PostProps {
   threadId : string,
   isPreview : boolean,
   getThreadAndTransition : Operation,
-  router : any
 }
 
 interface PostHeaderProps {
