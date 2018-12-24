@@ -4,13 +4,14 @@ import Post from './Post'
 import { connect } from 'react-redux'
 
 class Thread extends React.Component {
-  componentWillMount() {
-    this.props.getThread(this.props.threadId)
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   render() {
+    console.log('rendering thread')
+
     const { posts, op, threadId, postCount } = this.props
-    if (!posts.length || !op.id) return null
 
     const opElement = <Post key={op.id} post={op} isOp index={0} threadId={threadId} isPreview={false} />
 
@@ -19,17 +20,23 @@ class Thread extends React.Component {
       return <Post key={post.id} post={post} isOp={false} threadId={threadId} index={postIndex} isPreview={false} />
     })
 
-    return <div className='Thread'> {opElement} {postElements} </div>
+    return (
+      <div className='Thread'> 
+        <header>This is a <span>thread #{threadId}</span></header> 
+        {opElement} 
+        {postElements} 
+      </div>
+    )
   }
 }
 
-const props = (state, { match }) => {
-  const thread = selectors.thread(state, match.params.id)
+const props = (state, { threadId }) => {
+  const thread = selectors.thread(state, threadId)
   return {
     posts: selectors.getPosts(state, thread.id),
     op: selectors.post(state, thread.op),
     postCount: thread.postCount,
-    threadId: match.params.id
+    threadId: thread.id
   }
 }
 

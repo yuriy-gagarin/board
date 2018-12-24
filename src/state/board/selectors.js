@@ -1,11 +1,11 @@
 export const thread = (state, id) =>
-  state.threads.objects[id] || { id: '', posts: [], op: '' }
+  state.threads.objects[id]
 
 export const ids = (state) =>
   state.threads.ids
 
 export const post = (state, id) =>
-  state.posts.objects[id] || { id: '' }
+  state.posts.objects[id]
 
 export const getThreads = (state) =>
   ids(state).map(id => thread(state, id))

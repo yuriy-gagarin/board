@@ -53,7 +53,7 @@ table {
 
 @import 'animations';
 
-@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Vollkorn&subset=cyrillic');
 
 html {
   margin: 0;
@@ -79,7 +79,7 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('https://source.unsplash.com/random/1400x1400/?morning');
-    background-position: center center;
+    background-position: left top;
     background-attachment: scroll;
     background-size: cover;
     opacity: 0.3;
@@ -138,6 +138,12 @@ code {
 .Thread {
   margin-bottom: 20px;
   position: relative;
+  header {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 2rem;
+    font-family: 'Vollkorn';
+  }
 }
 
 .Loading {
@@ -149,8 +155,7 @@ code {
   bottom: 12px;
   left: 24px;
   border-radius: 2px;
-  animation: jello-vertical 0.9s infinite;
-  // animation: bouncing 1.3s ease infinite;
+  animation: jello-vertical 0.9s infinite, jiggle 1.3s ease infinite;
   display: flex;
   justify-content: center;
   font-family: 'Kosugi Maru';

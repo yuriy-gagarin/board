@@ -40,16 +40,16 @@
 }
 @keyframes jello-vertical {
   0% {
-    -webkit-transform: scale3d(1, 1, 1);
-            transform: scale3d(1, 1, 1);
+    -webkit-transform: scale3d(1, 1, 1) rotate(-1deg);
+            transform: scale3d(1, 1, 1) rotate(-1deg);
   }
   30% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
             transform: scale3d(0.75, 1.25, 1);
   }
   40% {
-    -webkit-transform: scale3d(1.25, 0.75, 1);
-            transform: scale3d(1.25, 0.75, 1);
+    -webkit-transform: scale3d(1.25, 0.75, 1) rotate(0deg);
+            transform: scale3d(1.25, 0.75, 1) rotate(0deg);
   }
   50% {
     -webkit-transform: scale3d(0.85, 1.15, 1);
@@ -60,8 +60,8 @@
             transform: scale3d(1.05, 0.95, 1);
   }
   75% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-            transform: scale3d(0.95, 1.05, 1);
+    -webkit-transform: scale3d(0.95, 1.05, 1) rotate(1deg);
+            transform: scale3d(0.95, 1.05, 1) rotate(1deg);
   }
   100% {
     -webkit-transform: scale3d(1, 1, 1);

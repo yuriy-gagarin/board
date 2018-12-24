@@ -11,16 +11,17 @@ const props = (state) => ({
 })
 
 class Board extends React.Component {
-  componentWillMount() {
-    this.props.getThreads()
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
-  
   render() {
+    console.log('rendering board')
+
     const threads = this.props.threads
     const previews = threads.map(thread =>
       <Preview key={thread.id} thread={thread} />
     )
-    return <div className='Board'> {previews} </div>
+    return <div className='Board'> <header>This is a board</header> {previews} </div>
   }
 }
 
