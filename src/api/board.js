@@ -19,6 +19,7 @@ export async function getThreads () {
 export async function getThread (id) {
   await simulateNetworkDelay()
   const thread = data.find(thread => thread.id === id)
+  // eslint-disable-next-line no-throw-literal
   if (!thread) throw {
     error: true,
     reason: 'Invalid thread ID.'
