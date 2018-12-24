@@ -1,4 +1,4 @@
-import { nbsp } from './constants'
+import { nbsp } from '../constants'
 
 export function formatDate (dateString : string) : string {
   const date = new Date(dateString)

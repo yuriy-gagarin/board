@@ -1,7 +1,10 @@
 import { ThunkAction } from 'redux-thunk'
 import { ActionCreator, Action } from 'redux'
 
-export type Thunk = ActionCreator<ThunkAction<Promise<Action>, ReduxState, void, Action>>
+export type AsyncThunk = ActionCreator<ThunkAction<any, ReduxState, void, Action>>
+export type Thunk = ActionCreator<ThunkAction<any, ReduxState, void, Action>>
+
+export type Operation = (...args: any[]) => void
 
 export interface ReduxState {
   readonly threads : {
@@ -12,6 +15,7 @@ export interface ReduxState {
     objects: { [id : string] : PostObject },
     ids: string[]   
   }
+  isLoading : boolean
 }
 
 export interface PostObject {
@@ -43,12 +47,12 @@ export interface ErrorResponse {
 }
 
 export interface ThreadsResponse {
-  readonly data : MockThreadObject[],
+  readonly threads : MockThreadObject[],
   readonly error : false
 }
 
 export interface ThreadResponse {
-  readonly data : MockThreadObject,
+  readonly thread : MockThreadObject,
   readonly error : false
 }
 

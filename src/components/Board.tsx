@@ -3,25 +3,31 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { operations } from '../state/board'
 import { selectors } from '../state/board'
-import { ReduxState, ThreadObject } from '../types'
+import { ReduxState, ThreadObject, Operation } from '../types'
 
 import Preview from './Preview'
+import Loading from './Loading'
 
 interface BoardProps {
   threads : ThreadObject[],
-  getThreads : (...args: any[]) => void
+  getThreads : Operation,
+  enteringBoard : Operation
 }
 
-const Board = ({ threads, getThreads } : BoardProps) => {
+const Board = ({ threads, getThreads, enteringBoard } : BoardProps) => {
+  
+  useEffect(() => {
+    enteringBoard()
+  }, [])
   
   useEffect(() => {
     getThreads()
   }, [])
 
   const previews = threads.map(thread =>
-    <li key={thread.id}> <Preview thread={thread} /> </li>
+    <Preview key={thread.id} thread={thread} />
   )
-  return <ul className='Board'> {previews} </ul>
+  return <div className='Board'> {previews} </div>
 }
 
 const props = (state : ReduxState) => ({

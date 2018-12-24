@@ -1,16 +1,31 @@
 import { mockThread } from '../utils/createMocks'
-import { delay } from '../utils/delay'
+import { delay, simulateNetworkDelay } from '../utils/delay'
 import { randint } from '../utils/randint'
-import { ThreadObject, ThreadsResponse } from '../types'
+import { ThreadObject, ThreadsResponse, ThreadResponse, MockThreadObject, ErrorResponse } from '../types'
 
-const data = async () => ({
-  threads: await Promise.all([...Array(10)].map(mockThread))
+let data : MockThreadObject[] = []
+
+Promise.all([...Array(10)].map(mockThread)).then(result => {
+  data = result
 })
 
 export async function getThreads () : Promise<ThreadsResponse> {
-  await delay(randint(100, 400))
+  await simulateNetworkDelay()
   return {
-    data: (await data()).threads,
+    threads: data,
+    error: false
+  }
+}
+
+export async function getThread (id : string) : Promise<ThreadResponse | ErrorResponse> {
+  await simulateNetworkDelay()
+  const thread = data.find(thread => thread.id === id)
+  if (!thread) throw {
+    error: true,
+    reason: 'Invalid thread ID.'
+  } 
+  return {
+    thread,
     error: false
   }
 }

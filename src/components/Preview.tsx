@@ -18,14 +18,14 @@ interface PreviewStateProps {
 type PreviewProps = PreviewOwnProps & PreviewStateProps
 
 const Preview = ({ thread: { id, postCount }, posts, op } : PreviewProps) => {
-  const opElement = <li key={op.id}> <Post post={op} isOp index={0}/> </li>
+  const opElement = <Post key={op.id} post={op} isOp index={0} threadId={id} isPreview />
 
   const postElements = posts.map((post : PostObject, index : number) => {
     const postIndex = index + postCount - posts.length
-    return <li key={post.id}> <Post post={post} isOp={false} index={postIndex}/> </li>
+    return <Post key={post.id} post={post} isOp={false} index={postIndex} threadId={id} isPreview />
   })
 
-  return <ul className='Preview'> {opElement} {postElements} </ul>
+  return <div className='Preview'> {opElement} {postElements} </div>
 }
 
 const props = (state : ReduxState, ownProps : PreviewOwnProps) => ({
