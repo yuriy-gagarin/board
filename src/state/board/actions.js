@@ -1,7 +1,5 @@
 import { schema, normalize } from 'normalizr'
-import { Action, ActionCreator } from 'redux'
 import { getThreads, getThread, changeRoute } from './actionTypes'
-import { ThreadsResponse } from '../../types'
 
 const postSchema = new schema.Entity('posts')
 
@@ -21,42 +19,42 @@ const threadsSchema = {
   ]
 }
 
-export const getThreadsRequest : ActionCreator<Action> = () => ({
+export const getThreadsRequest = () => ({
   type: getThreads.request
 })
 
-export const getThreadsSuccess : ActionCreator<Action> = (response : ThreadsResponse) => ({
+export const getThreadsSuccess = (response) => ({
   type: getThreads.success,
   payload: normalize(response, threadsSchema)
 })
 
-export const getThreadsFailure : ActionCreator<Action> = (error) => ({
+export const getThreadsFailure = (error) => ({
   type: getThreads.failure,
   payload: error,
   error: true
 })
 
-export const getThreadRequest : ActionCreator<Action> = (id : string) => ({
+export const getThreadRequest = (id) => ({
   type: getThread.request,
   payload: { id }
 })
 
-export const getThreadSuccess : ActionCreator<Action> = (response : ThreadsResponse) => ({
+export const getThreadSuccess = (response) => ({
   type: getThread.success,
   payload: normalize(response, threadSchema)
 })
 
-export const getThreadFailure : ActionCreator<Action> = (error) => ({
+export const getThreadFailure = (error) => ({
   type: getThread.failure,
   payload: error,
   error: true
 })
 
-export const changeRouteBoard : ActionCreator<Action> = () => ({
+export const changeRouteBoard = () => ({
   type: changeRoute.board
 })
 
-export const changeRouteThread : ActionCreator<Action> = (id : string) => ({
+export const changeRouteThread = (id) => ({
   type: changeRoute.thread,
   payload: { id }
 })

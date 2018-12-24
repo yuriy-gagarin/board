@@ -1,14 +1,12 @@
-import { createStore, applyMiddleware, compose, combineReducers, Middleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import reducer from './board'
 
-import { Store } from 'redux'
+export function configureStore () {
 
-export function configureStore () : Store {
-
-  const middlewares : Middleware[] = [
+  const middlewares = [
     thunk
   ]
 
@@ -19,7 +17,7 @@ export function configureStore () : Store {
   }
 
   const composeEnhancer = process.env.NODE_ENV !== 'production' &&
-    (<any> window).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose)
 
   return createStore(
     reducer,

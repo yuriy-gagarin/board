@@ -12,9 +12,7 @@ import Loading from './components/Loading'
 
 import './styles/index.scss'
 
-import { Store } from 'redux'
-
-const Root = ({ store } : { store : Store }) => (
+const Root = ({ store }) => (
   <Provider store={store}>
     <Router history={history}>
       <Switch>

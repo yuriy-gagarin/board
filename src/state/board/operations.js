@@ -1,10 +1,9 @@
 import * as actions from './actions'
 import * as boardApi from '../../api/board'
 
-import { Thunk, AsyncThunk } from '../../types'
 import history from '../../history';
 
-export const getThreads : AsyncThunk = () => dispatch => {
+export const getThreads = () => dispatch => {
   dispatch(actions.getThreadsRequest())
   return boardApi.getThreads().then(
     response => dispatch(actions.getThreadsSuccess(response)),
@@ -12,7 +11,7 @@ export const getThreads : AsyncThunk = () => dispatch => {
   )
 }
 
-export const getThread : AsyncThunk = (id : string) => dispatch => {
+export const getThread = (id) => dispatch => {
   dispatch(actions.getThreadRequest(id))
   return boardApi.getThread(id).then(
     response => dispatch(actions.getThreadSuccess(response)),
@@ -20,11 +19,11 @@ export const getThread : AsyncThunk = (id : string) => dispatch => {
   )
 }
 
-export const enteringBoard : Thunk = () => (dispatch) => dispatch(actions.changeRouteBoard())
+export const enteringBoard = () => (dispatch) => dispatch(actions.changeRouteBoard())
 
-export const enteringThread : Thunk = (id : string) => (dispatch) => dispatch(actions.changeRouteThread(id))
+export const enteringThread = (id) => (dispatch) => dispatch(actions.changeRouteThread(id))
 
-export const getThreadAndTransition : AsyncThunk = (id : string) => (dispatch) => {
+export const getThreadAndTransition = (id) => (dispatch) => {
   dispatch(actions.getThreadRequest(id))
   return boardApi.getThread(id).then(
     response => dispatch(actions.getThreadSuccess(response)),

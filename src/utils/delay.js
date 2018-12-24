@@ -1,7 +1,7 @@
 import { randint } from "./randint";
 
-export const delay = (ms : number) => {
-  return new Promise<void>(resolve => setTimeout(resolve, ms))
+export const delay = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 export const simulateNetworkDelay = () => {

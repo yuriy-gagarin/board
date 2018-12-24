@@ -1,7 +1,7 @@
-import { combineReducers, Reducer } from 'redux'
-import { getThreads, getThread, changeRoute } from './actionTypes'
+import { combineReducers } from 'redux'
+import { getThreads, getThread } from './actionTypes'
 
-const threadObjects : Reducer = (state = {}, action) => {
+const threadObjects = (state = {}, action) => {
   switch (action.type) {
     case getThreads.success:
       return {
@@ -18,7 +18,7 @@ const threadObjects : Reducer = (state = {}, action) => {
   }
 }
 
-const threadIds : Reducer = (state = [], action) => {
+const threadIds = (state = [], action) => {
   switch (action.type) {
     case getThreads.success:
       return action.payload.result.threads
@@ -27,7 +27,7 @@ const threadIds : Reducer = (state = [], action) => {
   }
 }
 
-const postObjects : Reducer = (state = {}, action) => {
+const postObjects = (state = {}, action) => {
   switch (action.type) {
     case getThreads.success:
     case getThread.success:
@@ -40,7 +40,7 @@ const postObjects : Reducer = (state = {}, action) => {
   }
 }
 
-const isLoading : Reducer = (state = false, action) => {
+const isLoading = (state = false, action) => {
   switch (action.type) {
     case getThreads.request:
     case getThread.request:

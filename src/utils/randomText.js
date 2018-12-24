@@ -1,7 +1,7 @@
 import * as randomTextApi from '../api/randomTextMe'
 
 export function createRandomTextGenerator() {
-  const textBuffer : string[] = []
+  const textBuffer = []
 
   async function pushText() {
     const rawText = (await randomTextApi.getRandomText()).text_out

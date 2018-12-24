@@ -1,6 +1,6 @@
 import { ACTION_SEPARATOR } from '../../constants'
 
-const name = (...args : string[]) => {
+const name = (...args) => {
   return args.join(ACTION_SEPARATOR)
 }
 
