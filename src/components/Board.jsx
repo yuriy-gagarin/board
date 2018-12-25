@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { connect } from 'react-redux'
 import { operations } from '../state/board'
@@ -21,7 +21,7 @@ class Board extends React.Component {
     const previews = threads.map(thread =>
       <Preview key={thread.id} thread={thread} />
     )
-    return <div className='Board'> <header>This is a board</header> {previews} </div>
+    return <div className='Board'> <header><span>This is a board</span></header> {previews} </div>
   }
 }
 

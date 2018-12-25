@@ -19,23 +19,28 @@ if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual'
 }
 
-const AsyncRoute = withBefore('render', (prevProps, thisProps) => 
-  prevProps.location.key !== thisProps.location.key
+const AsyncRoute = withBefore(
+  'render', 
+  (prevProps, thisProps) => prevProps.location.key !== thisProps.location.key
 )(Route)
+
+const beforeBoard = (store) => async () => {
+  await getThreads()(store.dispatch)
+  return () => <Board />
+}
+
+const beforeThread = (store) => async (props) => {
+  const id = props.computedMatch.params.id
+  await getThread(id)(store.dispatch)
+  return () => <Thread threadId={id} />
+}
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <AsyncRoute exact path='/' before={async () => {
-            await getThreads()(store.dispatch)
-            return () => <Board />
-        }} />
-        <AsyncRoute path='/:id' before={async props => {
-            const id = props.computedMatch.params.id
-            await getThread(id)(store.dispatch)
-            return () => <Thread threadId={id} />
-        }} />
+        <AsyncRoute exact path='/' before={beforeBoard(store)} />
+        <AsyncRoute path='/thread/:id' before={beforeThread(store)} />
       </Switch>
     </BrowserRouter>
     <Loading />

@@ -4,6 +4,7 @@ import { simulateNetworkDelay } from '../utils/delay'
 let data = []
 
 function createData() {
+  console.log('creating data... this should only happen once')
   return Promise.all([...Array(10)].map(mockThread)).then(result => {
     data = result
   })

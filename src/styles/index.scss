@@ -96,6 +96,12 @@ code {
   padding-top: 20px;
   min-width: 900px;
   max-width: 80vw;
+  @media screen and (max-width: 1000px) {
+    min-width: 450px;
+    max-width: 80vw;
+    padding-left: 0;
+    margin: auto;
+  }
 }
 
 .Post {
@@ -143,21 +149,46 @@ code {
     color: rgba(255, 255, 255, 0.9);
     font-size: 2rem;
     font-family: 'Vollkorn';
+
+    display: flex;
+    justify-content: space-between;
   }
 }
 
 .Loading {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
   width: 100px;
-  
-  bottom: 12px;
+  height: 30px;
+  bottom: 22px;
   left: 24px;
   border-radius: 2px;
-  animation: jello-vertical 0.9s infinite, jiggle 1.3s ease infinite;
+  animation: jello-vertical 0.9s ease-out infinite;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: 'Kosugi Maru';
   font-size: 1.7rem;
+  padding: 1px;
+  cursor: default;
+  user-select: none;
+
+  @media screen and (max-width: 1000px) {
+    width: 200px;
+    height: 60px;
+    font-size: 3.4rem;
+    bottom: calc(60% - 30px);
+    left: calc(50% - 100px);
+  }
+}
+
+.HeaderLoading {
+  display: none;
+  transform: scaleX(-1);
+  color: red;
+  position: relative;
+  @media screen and (max-width: 1000px) {
+    display: inline-block;
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { formatDate } from '../utils/formatDate'
 
@@ -16,7 +16,7 @@ const PostHeader = ({ id, isOp, readableId, createdAt }) => (
 
 const PostFooter = ({ threadId }) => (
   <div>
-    <span><Link to={threadId}>Go to thread</Link></span>
+    <span><Link to={'/thread/' + threadId}>Go to thread</Link></span>
   </div>
 )
 

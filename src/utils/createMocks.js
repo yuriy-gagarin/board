@@ -3,16 +3,16 @@ import { randint } from './randint'
 import { LOREM_IPSUM } from '../constants'
 import { createRandomTextGenerator } from './randomText';
 
-export const countFrom = (start ) => {
+export const countFrom = (start) => {
   let value = start
-  return ()  => value++
+  return () => value++
 }
 
 export const stringify = (f) => {
   return () => f().toString() 
 }
 
-export const dateBetween = (from , to ) => {
+export const dateBetween = (from, to) => {
   from = Math.ceil(from)
   to = Math.floor(to)
   return new Date(randint(from, to)).toISOString()

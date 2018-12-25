@@ -9,8 +9,6 @@ class Thread extends React.Component {
   }
 
   render() {
-    console.log('rendering thread')
-
     const { posts, op, threadId, postCount } = this.props
 
     const opElement = <Post key={op.id} post={op} isOp index={0} threadId={threadId} isPreview={false} />
@@ -22,7 +20,7 @@ class Thread extends React.Component {
 
     return (
       <div className='Thread'> 
-        <header>This is a <span>thread #{threadId}</span></header> 
+        <header><span>This is a thread #{threadId}</span></header> 
         {opElement} 
         {postElements} 
       </div>

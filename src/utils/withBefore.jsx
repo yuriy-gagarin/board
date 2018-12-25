@@ -1,22 +1,24 @@
 import React from 'react'
+import { omit } from 'lodash'
 
 /**
  * @param {string} resultProp
  * @param {function} updateCheck
  * 
  * HOC.
- * Resolves `before` prop, before wrapped component is mounted/updated.
- * `before` shold be an async function
+ * Resolves `beforeProp`, before wrapped component is mounted/updated.
+ * `beforeProp` shold be an async function
  */
-const withBefore = (resultProp = 'result', updateCheck = (prevProps, thisProps) => false) => (
+const withBefore = (resultProp = 'result', updateCheck = (prevProps, thisProps) => false, beforeProp = 'before') => (
   (WrappedComponent) => (
     class WithBefore extends React.Component {
       state = {}
+      complete = Symbol('complete')
 
       async callBefore () {
-        const result = await this.props.before(this.props)
+        const result = await this.props[beforeProp](this.props)
         this.setState({
-          complete: true,
+          [this.complete]: true,
           [resultProp]: result
         })
       }
@@ -31,10 +33,10 @@ const withBefore = (resultProp = 'result', updateCheck = (prevProps, thisProps) 
       }
 
       render() {
-        if (!this.state.complete) {
+        if (!this.state[this.complete]) {
           return null
         } else {
-          return <WrappedComponent {...this.props} {...this.state} />
+          return <WrappedComponent {...omit(this.props, beforeProp)} {...this.state} />
         }
       }      
     }
