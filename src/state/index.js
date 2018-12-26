@@ -12,7 +12,7 @@ export function configureStore () {
 
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(
-      createLogger()
+      createLogger({ collapsed: true })
     )
   }
 

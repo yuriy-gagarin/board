@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { configureStore } from './state'
 
 import { getThreads, getThread } from './state/board/operations'
+import { changeRouteBoard, changeRouteThread } from './state/board/actions'
 
 import Board from './components/Board'
 import Thread from './components/Thread'
@@ -26,12 +27,14 @@ const AsyncRoute = withBefore(
 
 const beforeBoard = (store) => async () => {
   await getThreads()(store.dispatch)
+  store.dispatch(changeRouteBoard())
   return () => <Board />
 }
 
 const beforeThread = (store) => async (props) => {
   const id = props.computedMatch.params.id
   await getThread(id)(store.dispatch)
+  store.dispatch(changeRouteThread(id))
   return () => <Thread threadId={id} />
 }
 

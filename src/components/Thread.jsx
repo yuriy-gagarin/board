@@ -1,26 +1,52 @@
 import React from 'react'
-import { operations, selectors } from '../state/board'
-import Post from './Post'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { selectors } from '../state/board'
+
+import Post from './Post'
 
 class Thread extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
+    const { threadId } = this.props
+    if (threadId === '-1') document.title = `This thread doesn't exist`
+    else document.title = `This is a thread #${threadId}`
     window.scrollTo(0, 0)
   }
 
-  render() {
+  render () {
     const { posts, op, threadId, postCount } = this.props
 
-    const opElement = <Post key={op.id} post={op} isOp index={0} threadId={threadId} isPreview={false} />
+    if (threadId === '-1') return (
+      <div className='Thread'>
+        <h1>This thread doesn't exist.</h1>
+        <Link className='not-found' to='/'></Link>
+      </div>
+    )
+
+    const opElement = <Post 
+      key={op.id} 
+      post={op} 
+      isOp 
+      index={0} 
+      threadId={threadId} 
+      isPreview={false} 
+      postCount={postCount} />
 
     const postElements = posts.map((post, index) => {
       const postIndex = index + postCount - posts.length
-      return <Post key={post.id} post={post} isOp={false} threadId={threadId} index={postIndex} isPreview={false} />
+      return <Post 
+        key={post.id} 
+        post={post} 
+        isOp={false} 
+        threadId={threadId} 
+        index={postIndex} 
+        isPreview={false} />
     })
 
     return (
       <div className='Thread'> 
-        <header><span>This is a thread #{threadId}</span></header> 
+        <header><h1>This is a thread #{threadId}</h1></header>
         {opElement} 
         {postElements} 
       </div>
@@ -38,4 +64,4 @@ const props = (state, { threadId }) => {
   }
 }
 
-export default connect(props, operations)(Thread)
+export default connect(props)(Thread)

@@ -15,18 +15,25 @@ async function ensureData() {
   return createData()
 }
 
+function truncatePosts (amount) {
+  return (thread) => ({
+    ...thread,
+    posts: thread.posts.slice(-amount)
+  })
+}
+
 export async function getThreads () {
   await ensureData()
-  await simulateNetworkDelay()
+  // await simulateNetworkDelay()
   return {
-    threads: data,
+    threads: data.map(truncatePosts(4)),
     error: false
   }
 }
 
 export async function getThread (id) {
   await ensureData()
-  await simulateNetworkDelay()
+  // await simulateNetworkDelay()
   const thread = data.find(thread => thread.id === id)
   // eslint-disable-next-line no-throw-literal
   if (!thread) throw {
@@ -35,6 +42,16 @@ export async function getThread (id) {
   } 
   return {
     thread,
+    error: false
+  }
+}
+
+export async function removeThread (id) {
+  await ensureData()
+  const threads = data.filter(thread => thread.id !== id)
+  data = threads
+  return {
+    threads: data.map(truncatePosts(4)),
     error: false
   }
 }

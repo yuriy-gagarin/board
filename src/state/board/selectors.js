@@ -1,5 +1,10 @@
+const noThread = {
+  id: '-1',
+  posts: []
+}
+
 export const thread = (state, id) =>
-  state.threads.objects[id]
+  state.threads.objects[id] || noThread
 
 export const ids = (state) =>
   state.threads.ids

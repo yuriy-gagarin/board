@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { getThreads, getThread } from './actionTypes'
+import { getThreads, getThread, changeRoute } from './actionTypes'
 
 const threadObjects = (state = {}, action) => {
   switch (action.type) {
@@ -50,6 +50,17 @@ const isLoading = (state = false, action) => {
     case getThread.success:
     case getThread.failure:
       return false
+    default:
+      return state
+  }
+}
+
+const currentView = (state = '', action) => {
+  switch (action.type) {
+    case changeRoute.thread:
+      return 'thread'
+    case changeRoute.board:
+      return 'board'
     default:
       return state
   }

@@ -4,30 +4,31 @@ import { Link } from 'react-router-dom'
 import { formatDate } from '../utils/formatDate'
 
 import { nbsp } from '../constants'
-import { connect } from 'react-redux'
-import { operations } from '../state/board'
 
-const PostHeader = ({ id, isOp, readableId, createdAt }) => (
+import ThreadControls from './ThreadControls'
+
+const PostHeader = ({ id, isOp, readableId, createdAt, index }) => (
   <div>
-    <span>{id + nbsp + readableId}{isOp && <span>~op</span>}</span>
+    <span>{id + nbsp + readableId}{isOp && <span>~op</span>}{nbsp}<span>{index}</span></span>
     <span>{formatDate(createdAt)}</span>
   </div>
 )
 
-const PostFooter = ({ threadId }) => (
+const PostFooter = ({ threadId, postCount }) => (
   <div>
-    <span><Link to={'/thread/' + threadId}>Go to thread</Link></span>
+    <ThreadControls threadId={threadId} />
+    <span>Total posts: {postCount}</span>
   </div>
 )
 
 const Post = (
-  { post: { readableId, createdAt, text, id }, isOp, isPreview, threadId } 
+  { post: { readableId, createdAt, text, id }, index, isOp, isPreview, threadId, postCount } 
 ) => (
   <div className='Post'>
-    <PostHeader {...{id, isOp, readableId, createdAt}} />
+    <PostHeader {...{id, isOp, readableId, createdAt, index}} />
     <p>{text}</p>
-    { isOp && isPreview ? <PostFooter threadId={threadId} /> : null }
+    { isOp && isPreview ? <PostFooter threadId={threadId} postCount={postCount} /> : null }
   </div>
 )
 
-export default connect(null, operations)(Post)
+export default Post

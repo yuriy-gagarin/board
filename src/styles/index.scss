@@ -53,7 +53,7 @@ table {
 
 @import 'animations';
 
-@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Vollkorn&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru|Open+Sans|Vollkorn&subset=cyrillic');
 
 html {
   margin: 0;
@@ -91,6 +91,13 @@ code {
     monospace;
 }
 
+$color-light: rgba(255, 255, 255, 0.9);
+$color-light-2: rgba(255, 255, 255, 0.8);
+$color-shadow: rgba(0, 0, 0, 0.25);
+$color-dark: rgba(0, 0, 0, 0.9);
+$color-dark-border: rgba(0, 0, 0, 0.1);
+
+
 #root {
   padding-left: 150px;
   padding-top: 20px;
@@ -104,36 +111,92 @@ code {
   }
 }
 
-.Post {
-  background-color: rgba(255, 255, 255, 0.9);
+.Post,
+.break,
+.break-loading {
+  background-color: $color-light;
   margin-bottom: 5px;
-  padding: 14px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px $color-shadow;
   border-radius: 2px;
   position: relative;
+  animation: fade-in 0.2s ease;
+}
+
+.not-found {
+  width: 100%;
+  height: 80vh;
+  box-shadow: 0 1px 5px $color-shadow;
+  border-radius: 2px;
+  position: relative;
+  animation: fade-in 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &::before {
+    border-radius: 2px;
+    content: "";
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-dark;
+    background-image: url('https://source.unsplash.com/random/900x900/');
+    background-position: center top;
+    background-attachment: scroll;
+    background-size: cover;
+    position: absolute;
+  }
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.break,
+.break-loading {
+  padding: 7px;
+  text-align: center;
+  position: relative;
+  &::after {
+    position: relative;
+    content: '···';
+  }
+}
+
+.break {
+  cursor: pointer;
+  &:hover {
+    background-color: $color-light-2;
+  }
+}
+
+.break-loading {
+  animation: flicker-out-1 0.9s ease-out infinite;
+}
+
+.Post {
+  padding: 14px;
   &:last-child {
     margin-bottom: 0px;
   }
-  div {
-    color: rgba(0, 0, 0, 0.9);
+  > div {
+    color: $color-dark;
     position: relative;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
-  div:first-child {
+  > div:first-child {
     padding-bottom: 9px;
     margin-bottom: 9px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid $color-dark-border;
   }
-  div:last-child {
+  > div:last-child {
     padding-top: 9px;
     margin-top: 9px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid $color-dark-border;
   }
-  p {
+  > p {
     line-height: 120%;
   }
-  animation: slide-up 0.2s ease;
 }
 
 .Preview {
@@ -144,12 +207,11 @@ code {
 .Thread {
   margin-bottom: 20px;
   position: relative;
-  header {
+  h1 {
     margin-bottom: 10px;
-    color: rgba(255, 255, 255, 0.9);
+    color: $color-light;
     font-size: 2rem;
     font-family: 'Vollkorn';
-
     display: flex;
     justify-content: space-between;
   }
@@ -157,10 +219,8 @@ code {
 
 .Loading {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
-  width: 100px;
-  height: 30px;
+  background-color: $color-light;
+  box-shadow: 0 1px 10px $color-shadow;
   bottom: 22px;
   left: 24px;
   border-radius: 2px;
@@ -170,25 +230,14 @@ code {
   align-items: center;
   font-family: 'Kosugi Maru';
   font-size: 1.7rem;
-  padding: 1px;
+  padding: 1px 3px;
   cursor: default;
   user-select: none;
 
   @media screen and (max-width: 1000px) {
-    width: 200px;
-    height: 60px;
+    padding: 1px 5px;
     font-size: 3.4rem;
     bottom: calc(60% - 30px);
     left: calc(50% - 100px);
-  }
-}
-
-.HeaderLoading {
-  display: none;
-  transform: scaleX(-1);
-  color: red;
-  position: relative;
-  @media screen and (max-width: 1000px) {
-    display: inline-block;
   }
 }

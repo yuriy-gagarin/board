@@ -3,8 +3,9 @@ import { randint } from './randint'
 import { LOREM_IPSUM } from '../constants'
 import { createRandomTextGenerator } from './randomText';
 
-export const countFrom = (start) => {
+export const countFrom = (start, backward = false) => {
   let value = start
+  if (backward) return () => value--
   return () => value++
 }
 
@@ -23,13 +24,13 @@ export const readableId = () => {
   return words[randint(0, words.length-1)] + '~' + words[randint(0, words.length-1)]
 }
 
-const id = stringify(countFrom(1))
+const id = stringify(countFrom(randint(12000, 23000)))
 const createdAt = dateBetween.bind(null, Math.pow(10, 12) * 14, Math.pow(10, 12) * 16)
 const text = createRandomTextGenerator()
 const postCount = randint.bind(null, 2, 10)
 
-export const mockPost = async () => ({
-  id: id(),
+export const mockPost = async (customId) => ({
+  id: customId || id(),
   createdAt: createdAt(),
   readableId: readableId(),
   text: (await text.next()).value,
@@ -37,10 +38,12 @@ export const mockPost = async () => ({
 
 export const mockThread = async () => {
   const count = postCount()
+  const threadId = id()
+  const posts = await Promise.all([...Array(count - 1)].map(mockPost))
   return {
-    id: id(),
-    op: await mockPost(),
-    posts: await Promise.all([...Array(count - 1)].map(mockPost)),
+    id: threadId,
+    op: await mockPost(threadId),
+    posts,
     postCount: count
   }
 }
