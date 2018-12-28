@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { selectors } from '../state/board'
 
 import Post from './Post'
+import Header from './Header'
+
 
 class Thread extends React.Component {
   componentDidMount () {
@@ -19,7 +21,7 @@ class Thread extends React.Component {
 
     if (threadId === '-1') return (
       <div className='Thread'>
-        <h1>This thread doesn't exist.</h1>
+        <Header type='thread' threadId={threadId} />
         <Link className='not-found' to='/'></Link>
       </div>
     )

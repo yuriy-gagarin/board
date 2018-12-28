@@ -1,7 +1,15 @@
 import { mockThread } from '../utils/createMocks'
 import { simulateNetworkDelay } from '../utils/delay'
+import { debounce } from 'lodash'
 
-let data = []
+let data
+try {
+  data = JSON.parse(localStorage.getItem('__fakeData')) || []
+} catch (e) {
+  console.error(e)
+} finally {
+  data = []
+}
 
 function createData() {
   console.log('creating data... this should only happen once')
@@ -10,9 +18,18 @@ function createData() {
   })
 }
 
+const saveToLocalStorage = debounce(function () {
+  try {
+    localStorage.setItem('__fakeData', JSON.stringify(data))
+  } catch(e) {
+    console.error(e)
+  }
+})
+
 async function ensureData() {
   if (data.length) return
-  return createData()
+  await createData()
+  return new Promise(resolve => resolve(saveToLocalStorage()))
 }
 
 function truncatePosts (amount) {
@@ -48,10 +65,12 @@ export async function getThread (id) {
 
 export async function removeThread (id) {
   await ensureData()
+  // await simulateNetworkDelay()
   const threads = data.filter(thread => thread.id !== id)
   data = threads
+  saveToLocalStorage()
   return {
-    threads: data.map(truncatePosts(4)),
+    removed: id,
     error: false
   }
 }

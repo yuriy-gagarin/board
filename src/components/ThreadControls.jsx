@@ -1,16 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+import { operations } from '../state/board'
 
 class ThreadControls extends React.Component {
   render () {
-    const { threadId } = this.props
+    const { threadId, removeThread, location } = this.props
     return (
       <div className='ThreadControls'>
-        <Link to={'/thread/' + threadId}>Go to thread</Link>
-        <Link to={'/thread/' + threadId}>Remove thread</Link>
+        <Link className='action' to={'/thread/' + threadId}>Go to thread</Link>
+        <button className='action' onClick={() => removeThread(threadId)}>Remove thread</button>
       </div>
     )
   }
 }
 
-export default ThreadControls
+export default connect(null, operations)(ThreadControls)

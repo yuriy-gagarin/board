@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
-import { getThreads, getThread, changeRoute } from './actionTypes'
+import { getThreads, getThread, changeRoute, removeThread } from './actionTypes'
 
 const threadObjects = (state = {}, action) => {
+  console.log('threadObjects', state)
   switch (action.type) {
     case getThreads.success:
       return {
@@ -19,15 +20,19 @@ const threadObjects = (state = {}, action) => {
 }
 
 const threadIds = (state = [], action) => {
+  console.log('threadIds', state)
   switch (action.type) {
     case getThreads.success:
       return action.payload.result.threads
+    case removeThread.success:
+      return state.filter(id => id !== action.payload.removed)
     default:
       return state
   }
 }
 
 const postObjects = (state = {}, action) => {
+  console.log('postObjects', state)
   switch (action.type) {
     case getThreads.success:
     case getThread.success:
@@ -41,14 +46,19 @@ const postObjects = (state = {}, action) => {
 }
 
 const isLoading = (state = false, action) => {
+  console.log('isLoading', state)
   switch (action.type) {
     case getThreads.request:
     case getThread.request:
-      return true
+      return 'loading'
+    case removeThread.request:
+      return 'removing'
     case getThreads.success:
     case getThreads.failure:
     case getThread.success:
     case getThread.failure:
+    case removeThread.success:
+    case removeThread.failure:
       return false
     default:
       return state
@@ -56,6 +66,7 @@ const isLoading = (state = false, action) => {
 }
 
 const currentView = (state = '', action) => {
+  console.log('currentView', typeof state)
   switch (action.type) {
     case changeRoute.thread:
       return 'thread'
@@ -78,7 +89,8 @@ const posts = combineReducers({
 const reducer = combineReducers({
   threads,
   posts,
-  isLoading
+  isLoading,
+  currentView
 })
 
 export default reducer

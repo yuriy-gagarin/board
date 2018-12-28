@@ -9,6 +9,7 @@ const SUCCESS = 'success'
 const FAILURE = 'failure'
 const GET_THREADS = 'getThreads'
 const GET_THREAD = 'getThread'
+const REMOVE_THREAD = 'removeThread'
 const CHANGE_ROUTE = 'changeRoute'
 const BOARD = 'board'
 const THREAD = 'thread'
@@ -23,6 +24,12 @@ export const getThread = {
   request: name(GET_THREAD, REQUEST),
   success: name(GET_THREAD, SUCCESS),
   failure: name(GET_THREAD, FAILURE)
+}
+
+export const removeThread = {
+  request: name(REMOVE_THREAD, REQUEST),
+  success: name(REMOVE_THREAD, SUCCESS),
+  failure: name(REMOVE_THREAD, FAILURE)
 }
 
 export const changeRoute = {

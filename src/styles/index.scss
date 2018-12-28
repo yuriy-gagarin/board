@@ -241,3 +241,21 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
     left: calc(50% - 100px);
   }
 }
+
+.ThreadControls {
+  .action {
+    margin-right: 0.3rem;
+  }
+  .action:last-child {
+    margin-right: 0;
+  }
+  button {
+    background: none;
+    color: blue;
+    border: none;
+    padding: 0;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

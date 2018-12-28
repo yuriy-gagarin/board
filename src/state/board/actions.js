@@ -1,5 +1,5 @@
 import { schema, normalize } from 'normalizr'
-import { getThreads, getThread, changeRoute } from './actionTypes'
+import { getThreads, getThread, changeRoute, removeThread } from './actionTypes'
 
 const postSchema = new schema.Entity('posts')
 
@@ -46,6 +46,22 @@ export const getThreadSuccess = (response) => ({
 
 export const getThreadFailure = (error) => ({
   type: getThread.failure,
+  payload: error,
+  error: true
+})
+
+export const removeThreadRequest = (id) => ({
+  type: removeThread.request,
+  payload: { id }
+})
+
+export const removeThreadSuccess = (response) => ({
+  type: removeThread.success,
+  payload: response
+})
+
+export const removeThreadFailure = (error) => ({
+  type: removeThread.failure,
   payload: error,
   error: true
 })

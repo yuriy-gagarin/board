@@ -16,3 +16,11 @@ export const getThread = (id) => dispatch => {
     error => dispatch(actions.getThreadFailure(error))
   )
 }
+
+export const removeThread = (id) => dispatch => {
+  dispatch(actions.removeThreadRequest(id))
+  return boardApi.removeThread(id).then(
+    response => dispatch(actions.removeThreadSuccess(response)),
+    error => dispatch(actions.removeThreadFailure(error))
+  )
+}

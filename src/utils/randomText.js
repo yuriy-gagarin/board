@@ -14,10 +14,12 @@ export function createRandomTextGenerator() {
   async function * generator() {
     while (true) {
       if (textBuffer.length > 0) {
-        yield textBuffer.shift() || ''
+        let string = textBuffer.shift()
+        if (!string) continue
+        yield string
       } else {
         await pushText()
-        yield textBuffer.shift() || ''
+        continue
       }
     }
   }

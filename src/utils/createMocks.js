@@ -24,7 +24,7 @@ export const readableId = () => {
   return words[randint(0, words.length-1)] + '~' + words[randint(0, words.length-1)]
 }
 
-const id = stringify(countFrom(randint(12000, 23000)))
+const id = stringify(countFrom(10000))
 const createdAt = dateBetween.bind(null, Math.pow(10, 12) * 14, Math.pow(10, 12) * 16)
 const text = createRandomTextGenerator()
 const postCount = randint.bind(null, 2, 10)
