@@ -10,9 +10,6 @@ import Header from './Header'
 
 class Thread extends React.Component {
   componentDidMount () {
-    const { threadId } = this.props
-    if (threadId === '-1') document.title = `This thread doesn't exist`
-    else document.title = `This is a thread #${threadId}`
     window.scrollTo(0, 0)
   }
 
@@ -21,7 +18,6 @@ class Thread extends React.Component {
 
     if (threadId === '-1') return (
       <div className='Thread'>
-        <Header type='thread' threadId={threadId} />
         <Link className='not-found' to='/'></Link>
       </div>
     )
@@ -48,7 +44,6 @@ class Thread extends React.Component {
 
     return (
       <div className='Thread'> 
-        <header><h1>This is a thread #{threadId}</h1></header>
         {opElement} 
         {postElements} 
       </div>

@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 import { selectors } from '../state/board'
 
 import Preview from './Preview'
-import Header from './Header'
-
 
 class Board extends React.Component {
+  ref = React.createRef()
+
   componentDidMount () {
     window.scrollTo(0, 0)
     document.title = `This is a board`
@@ -26,13 +26,9 @@ class Board extends React.Component {
     } else {
       previews = <><div><h1>and there are no threads...</h1></div><Link className='not-found' to='/'></Link></>
     }
-
-
-    const header = <Header type='board' noOfThreads={previews.length} />
     
     return (
-      <div className='Board'> 
-        {header}
+      <div ref={this.ref} className='Board'>
         {previews}
       </div>
     )

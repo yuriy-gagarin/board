@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import { getThreads, getThread, changeRoute, removeThread } from './actionTypes'
 
 const threadObjects = (state = {}, action) => {
-  console.log('threadObjects', state)
   switch (action.type) {
     case getThreads.success:
       return {
@@ -20,7 +19,6 @@ const threadObjects = (state = {}, action) => {
 }
 
 const threadIds = (state = [], action) => {
-  console.log('threadIds', state)
   switch (action.type) {
     case getThreads.success:
       return action.payload.result.threads
@@ -32,7 +30,6 @@ const threadIds = (state = [], action) => {
 }
 
 const postObjects = (state = {}, action) => {
-  console.log('postObjects', state)
   switch (action.type) {
     case getThreads.success:
     case getThread.success:
@@ -46,7 +43,6 @@ const postObjects = (state = {}, action) => {
 }
 
 const isLoading = (state = false, action) => {
-  console.log('isLoading', state)
   switch (action.type) {
     case getThreads.request:
     case getThread.request:
@@ -66,7 +62,6 @@ const isLoading = (state = false, action) => {
 }
 
 const currentView = (state = '', action) => {
-  console.log('currentView', typeof state)
   switch (action.type) {
     case changeRoute.thread:
       return 'thread'

@@ -1,7 +1,20 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { selectors } from '../state/board';
 
 class Header extends React.Component {
+  ref = React.createRef()
+
   componentDidMount () {
+    this.addScrollListeners()
+    this.fixDocumentTitle()
+  }
+
+  componentWillUnmount () {
+    this.removeScrollListeners()
+  }
+
+  fixDocumentTitle () {
     const { type, noOfThreads, threadId } = this.props
     
     if (type === 'board') {
@@ -15,21 +28,57 @@ class Header extends React.Component {
     }
   }
 
-  render () {
-    const { type, noOfThreads, threadId } = this.props
+  addScrollListeners () {
+    document.addEventListener('scroll', this.handleScroll)
+  }
 
-    let header = null
+  removeScrollListeners () {
+    document.removeEventListener('scroll', this.handleScroll)
+  }
+
+  createHandleScroll () {
+    let waitingForFrame = false
+    let scrollPosition = 0
+
+    return (event) => {
+      scrollPosition = window.scrollY
+
+      if (!waitingForFrame) {
+        window.requestAnimationFrame((time) => {
+          if (scrollPosition > 5) {
+            this.ref.current.classList.add('scrolled')
+          } else {
+            this.ref.current.classList.remove('scrolled')
+          }
+          waitingForFrame = false
+        })
+        waitingForFrame = true
+      }
+
+    }
+  }
+
+  handleScroll = this.createHandleScroll()
+
+  render () {
+    const { type, threadId } = this.props
+
+    let text = ''
 
     if (type === 'board') {
-      header = <header><h1>This is a board</h1></header>
+      text = 'This is a board'
     } else if (type === 'thread') {
-      header = threadId && threadId === '-1'
-        ? <header><h1>This thread doesn't exist.</h1></header>
-        : <header><h1>This is a thread #{threadId}</h1></header>
+      text = threadId && threadId === '-1'
+        ? 'This thread doesn\'t exist.'
+        : `This is a thread #${threadId}`
     }
 
-    return header
+    return <div className='Header' ref={this.ref}><header><h1>{text}</h1></header></div>
   }
 }
 
-export default Header
+const props = (state) => ({
+  type: selectors.currentView(state)
+})
+
+export default connect(props)(Header)

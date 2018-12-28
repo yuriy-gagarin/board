@@ -20,3 +20,9 @@ export const getPosts = (state, id) =>
 
 export const isLoading = (state) =>
   state.isLoading
+
+export const currentView = (state) =>
+  state.currentView
+
+export const currentThread = (state) =>
+  state.currentThread

@@ -58,11 +58,13 @@ table {
 html {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 body {
   margin: 0;
   padding: 0;
+  position: relative;
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -99,16 +101,7 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 
 
 #root {
-  padding-left: 150px;
-  padding-top: 20px;
-  min-width: 900px;
-  max-width: 80vw;
-  @media screen and (max-width: 1000px) {
-    min-width: 450px;
-    max-width: 80vw;
-    padding-left: 0;
-    margin: auto;
-  }
+
 }
 
 .Post,
@@ -206,15 +199,59 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 .Board,
 .Thread {
   margin-bottom: 20px;
-  position: relative;
-  h1 {
-    margin-bottom: 10px;
-    color: $color-light;
-    font-size: 2rem;
-    font-family: 'Vollkorn';
-    display: flex;
-    justify-content: space-between;
+  margin-top: 0;
+  padding-top: 57px;
+  padding-left: 150px;
+  min-width: 900px;
+  max-width: 80vw;
+  @media screen and (max-width: 1000px) {
+    min-width: 450px;
+    max-width: 80vw;
+    padding-left: 0;
+    margin: auto;
   }
+  position: relative;
+}
+
+.Header {
+  padding-top: 15px;
+  padding-bottom: 5px;
+  color: $color-light;
+  font-size: 2rem;
+  font-family: 'Vollkorn';
+  position: fixed;
+  top: 0;
+  left: 0;
+  &.scrolled {
+    background-color: rgba(255, 255, 255, 0.90);
+    box-shadow: 0 1px 5px $color-shadow;
+    color: $color-dark;
+  }
+  width: 100%;
+  z-index: 1;
+  transition: all 0.1s ease-in;
+  height: 52px;
+  header {
+    margin-bottom: 20px;
+    padding-left: 150px;
+    min-width: 900px;
+    max-width: 80vw;
+    @media screen and (max-width: 1000px) {
+      min-width: 450px;
+      max-width: 80vw;
+      padding-left: 0;
+      margin: auto;
+    }
+    position: relative;
+  }
+}
+
+.PostForm {
+  background-color: $color-light;
+  box-shadow: 0 1px 5px $color-shadow;
+  border-radius: 2px;
+  animation: fade-in 0.2s ease;
+  
 }
 
 .Loading {

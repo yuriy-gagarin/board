@@ -11,10 +11,12 @@ import { changeRouteBoard, changeRouteThread } from './state/board/actions'
 import Board from './components/Board'
 import Thread from './components/Thread'
 import Loading from './components/Loading'
+import PostForm from './components/PostForm'
 
 import withBefore from './utils/withBefore'
 
 import './styles/index.scss'
+import Header from './components/Header';
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual'
@@ -40,6 +42,7 @@ const beforeThread = (store) => async (props) => {
 
 const Root = ({ store }) => (
   <Provider store={store}>
+    <Header />
     <BrowserRouter>
       <Switch>
         <AsyncRoute exact path='/' before={beforeBoard(store)} />
