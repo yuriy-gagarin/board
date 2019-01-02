@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { selectors } from '../state/board';
+import { Button } from 'semantic-ui-react';
 
 class Header extends React.Component {
+  state = { scrolled: false }
   ref = React.createRef()
 
   componentDidMount () {
@@ -36,6 +38,7 @@ class Header extends React.Component {
     document.removeEventListener('scroll', this.handleScroll)
   }
 
+  
   createHandleScroll () {
     let waitingForFrame = false
     let scrollPosition = 0
@@ -45,10 +48,10 @@ class Header extends React.Component {
 
       if (!waitingForFrame) {
         window.requestAnimationFrame((time) => {
-          if (scrollPosition > 5) {
-            this.ref.current.classList.add('scrolled')
+          if (scrollPosition <= 0) {
+            this.setState({ scrolled: false })
           } else {
-            this.ref.current.classList.remove('scrolled')
+            this.setState({ scrolled: true })
           }
           waitingForFrame = false
         })
@@ -61,24 +64,37 @@ class Header extends React.Component {
   handleScroll = this.createHandleScroll()
 
   render () {
-    const { type, threadId } = this.props
+    const { type, thread: { id } } = this.props
 
     let text = ''
 
     if (type === 'board') {
       text = 'This is a board'
     } else if (type === 'thread') {
-      text = threadId && threadId === '-1'
+      text = id && id === '-1'
         ? 'This thread doesn\'t exist.'
-        : `This is a thread #${threadId}`
+        : `This is a thread #${id}`
     }
 
-    return <div className='Header' ref={this.ref}><header><h1>{text}</h1></header></div>
+    const scrolled = this.state.scrolled
+
+    return (
+      <div className={scrolled ? 'Header scrolled' : 'Header'} ref={this.ref}>
+        <header>
+          <h1>{text}</h1>
+          <Button content='New thread' color={scrolled ? 'black' : 'white'} inverted={!scrolled} />
+        </header>
+      </div>
+    ) 
   }
 }
 
-const props = (state) => ({
-  type: selectors.currentView(state)
-})
+const props = (state) => {
+  const threadId = selectors.currentThread(state)
+  return {
+    type: selectors.currentView(state),
+    thread: selectors.thread(state, threadId)
+  }
+}
 
 export default connect(props)(Header)

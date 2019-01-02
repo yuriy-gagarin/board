@@ -13,6 +13,11 @@ const threadObjects = (state = {}, action) => {
         ...state,
         [action.payload.result.thread.id]: action.payload.result.thread
       }
+    case removeThread.success:
+      return {
+        ...state,
+        [action.payload.removed]: undefined
+      }
     default:
       return state
   }
@@ -72,6 +77,15 @@ const currentView = (state = '', action) => {
   }
 }
 
+const currentThread = (state = '', action) => {
+  switch (action.type) {
+    case changeRoute.thread:
+      return action.payload.id
+    default:
+      return state
+  }
+}
+
 const threads = combineReducers({
   objects: threadObjects,
   ids: threadIds
@@ -85,7 +99,8 @@ const reducer = combineReducers({
   threads,
   posts,
   isLoading,
-  currentView
+  currentView,
+  currentThread
 })
 
 export default reducer

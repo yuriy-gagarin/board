@@ -24,7 +24,7 @@ class Board extends React.Component {
         <Preview key={thread.id} threadId={thread.id} postCount={thread.postCount} op={thread.op} />
       )
     } else {
-      previews = <><div><h1>and there are no threads...</h1></div><Link className='not-found' to='/'></Link></>
+      previews = <Link className='not-found' to='/'></Link>
     }
     
     return (

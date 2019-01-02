@@ -6,5 +6,5 @@ export const delay = (ms) => {
 
 export const simulateNetworkDelay = () => {
   const ms = Math.random() > 0.66 ? randint(1000, 4000) : randint(400, 900) 
-  return delay(ms)
+  return delay(500)
 }

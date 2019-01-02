@@ -7,7 +7,6 @@ try {
   data = JSON.parse(localStorage.getItem('__fakeData')) || []
 } catch (e) {
   console.error(e)
-} finally {
   data = []
 }
 
@@ -49,14 +48,14 @@ export async function getThreads () {
 }
 
 export async function getThread (id) {
-  await ensureData()
+  // await ensureData()
   await simulateNetworkDelay()
   const thread = data.find(thread => thread.id === id)
   // eslint-disable-next-line no-throw-literal
   if (!thread) throw {
     error: true,
     reason: 'Invalid thread ID.'
-  } 
+  }
   return {
     thread,
     error: false
@@ -64,7 +63,7 @@ export async function getThread (id) {
 }
 
 export async function removeThread (id) {
-  await ensureData()
+  // await ensureData()
   await simulateNetworkDelay()
   const threads = data.filter(thread => thread.id !== id)
   data = threads

@@ -106,7 +106,8 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 
 .Post,
 .break,
-.break-loading {
+.break-loading,
+.ThreadControls {
   background-color: $color-light;
   margin-bottom: 5px;
   box-shadow: 0 1px 5px $color-shadow;
@@ -141,6 +142,16 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
   &:hover {
     opacity: 0.9;
   }
+  h1 {
+    z-index: 1;
+    color: $color-light;
+    font-size: 2rem;
+    font-family: 'Vollkorn';
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  text-decoration: none;
 }
 
 .break,
@@ -194,6 +205,9 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 
 .Preview {
   margin-bottom: 20px;
+  &.removing {
+    animation: flicker-out-2 2s linear both;
+  }
 }
 
 .Board,
@@ -215,7 +229,7 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 
 .Header {
   padding-top: 15px;
-  padding-bottom: 5px;
+  padding-bottom: 9px;
   color: $color-light;
   font-size: 2rem;
   font-family: 'Vollkorn';
@@ -227,11 +241,14 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 5px $color-shadow;
     color: $color-dark;
   }
+  transition: all 0.08s ease-in;
+  transition: padding 0.2 ease-in;
   width: 100%;
   z-index: 1;
-  transition: all 0.1s ease-in;
-  height: 52px;
+  height: 55px;
   header {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
     padding-left: 150px;
     min-width: 900px;
@@ -243,6 +260,9 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
       margin: auto;
     }
     position: relative;
+    .button:last-child {
+      margin: 0;
+    }
   }
 }
 
@@ -280,19 +300,56 @@ $color-dark-border: rgba(0, 0, 0, 0.1);
 }
 
 .ThreadControls {
-  .action {
-    margin-right: 0.3rem;
+  .thread-buttons {
+    padding: 7px 14px;
+    display: flex;
+    justify-content: space-between;
+    .action {
+      margin-right: 0.3rem;
+    }
+    .action:last-child {
+      margin-right: 0;
+    }
+    button {
+      // background: none;
+      // color: blue;
+      // border: none;
+      // padding: 0;
+      font: inherit;
+      // text-decoration: underline;
+      // cursor: pointer;
+    }
   }
-  .action:last-child {
-    margin-right: 0;
+}
+
+.ReplyForm {
+  padding: 7px 14px;
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  form {
+    margin-bottom: 7px;
   }
-  button {
-    background: none;
-    color: blue;
-    border: none;
-    padding: 0;
-    font: inherit;
-    text-decoration: underline;
-    cursor: pointer;
+  textarea {
+    font-family: inherit;
+  }
+}
+
+.button {
+  height: 30px;
+  padding: 7px !important;
+}
+
+
+.button.vertical.animated, .button.fade.animated {
+  padding: 7px !important;
+  .visible.content {
+    margin: 0 !important;
+  }
+}
+
+.buttons {
+  .or {
+    display: none;
   }
 }

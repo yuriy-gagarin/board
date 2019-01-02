@@ -11,11 +11,13 @@ import { changeRouteBoard, changeRouteThread } from './state/board/actions'
 import Board from './components/Board'
 import Thread from './components/Thread'
 import Loading from './components/Loading'
-import PostForm from './components/PostForm'
 
 import withBefore from './utils/withBefore'
 
+import 'semantic-ui-css/semantic.min.css'
 import './styles/index.scss'
+
+
 import Header from './components/Header';
 
 if ('scrollRestoration' in window.history) {

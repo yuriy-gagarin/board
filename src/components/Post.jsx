@@ -1,11 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import { formatDate } from '../utils/formatDate'
 
 import { nbsp } from '../constants'
-
-import ThreadControls from './ThreadControls'
 
 const PostHeader = ({ id, isOp, readableId, createdAt, index }) => (
   <div>
@@ -16,7 +13,6 @@ const PostHeader = ({ id, isOp, readableId, createdAt, index }) => (
 
 const PostFooter = ({ threadId, postCount }) => (
   <div>
-    <ThreadControls threadId={threadId} />
     <span>Total posts: {postCount}</span>
   </div>
 )
